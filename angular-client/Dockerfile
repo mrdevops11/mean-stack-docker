@@ -1,14 +1,14 @@
-# Base Image is node image version :8 
-FROM node:8
+# Base Image is node image version :6 
+FROM node:6
 
 # Create the parent folder where our application to be located
-RUN mkdir -p /var/www/app
+RUN mkdir -p /usr/src/app
 
 # Set the working directory for the application
-WORKDIR /var/www/app
+WORKDIR /usr/src/app
 
 #  Copy our package.json file to the working directory
-COPY package.json /var/www/app
+COPY package.json /usr/src/app
 
 # Cleaning cache of Node Package Manager
 RUN npm cache clean
@@ -17,7 +17,7 @@ RUN npm cache clean
 RUN npm install
 
 # Copy all project files to docker image
-COPY . /var/www/app
+COPY . /usr/src/app
 
 # Expose the port on which the application will run
 EXPOSE 4200
