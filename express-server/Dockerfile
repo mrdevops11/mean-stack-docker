@@ -1,14 +1,14 @@
-# Dockerhub üzerinden resmi Node 8 image'ını temel alarak bir image oluştur
-FROM node:8
+# Dockerhub üzerinden resmi Node 6 image'ını temel alarak bir image oluştur
+FROM node:6
 
 # Uygulamamızın bulunacağı klasörü oluştur
-RUN mkdir -p /var/www/app
+RUN mkdir -p /usr/src/app
 
 # Komutlarımızın çalıştırılacağı dizini seç
-WORKDIR /var/www/app
+WORKDIR /usr/src/app
 
 # package.json dosyamızı çalışma dizinine kopyala
-COPY package.json /var/www/app
+COPY package.json /usr/src/app
 
 # Bağımlılıkları kur
 RUN npm install
@@ -17,7 +17,7 @@ RUN npm install
 RUN npm install -g nodemon
 
 # Tüm proje dosyalarını docker image'ına kopyala
-COPY . /var/www/app
+COPY . /usr/src/app
 
 # Uygulamanın çalışacağı port
 EXPOSE 3000
