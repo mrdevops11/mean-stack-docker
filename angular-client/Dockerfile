@@ -1,23 +1,26 @@
-# Dockerhub üzerinden resmi Node 8 image'ını temel alarak bir image oluştur
+# Base Image is node image version :8 
 FROM node:8
 
-# Uygulamamızın bulunacağı klasörü oluştur
+# Create the parent folder where our application to be located
 RUN mkdir -p /var/www/app
 
-# Komutlarınızın çalıştırılacağı dizini seç
+# Set the working directory for the application
 WORKDIR /var/www/app
 
-# package.json dosyamızı çalışma dizinine kopyala
+#  Copy our package.json file to the working directory
 COPY package.json /var/www/app
 
-# Bağımlılıkları kur
+# Cleaning cache of Node Package Manager
+RUN npm cache clean
+
+# Install dependencies - Node Package Manager
 RUN npm install
 
-# Tüm proje dosyalarını docker image'ına kopyala
+# Copy all project files to docker image
 COPY . /var/www/app
 
-# Uygulamanın çalışacağı port
+# Expose the port on which the application will run
 EXPOSE 4200
 
-# Projeyi ayağa kaldıracak komutu çalıştır
+# Start the NPM service
 CMD ["npm", "start"]
